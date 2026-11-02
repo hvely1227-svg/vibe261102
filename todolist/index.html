@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>오늘의 할일</title>
+  <script>
+    // 첫 화면 깜빡임 방지: 저장된 테마를 CSS 로드 전에 적용
+    try {
+      var saved = JSON.parse(localStorage.getItem('todolist:v1:settings') || '{}');
+      if (saved.theme === 'light' || saved.theme === 'dark') document.documentElement.dataset.theme = saved.theme;
+    } catch (e) {}
+  </script>
+  <link rel="stylesheet" href="css/style.css">
+  <script type="module" src="js/main.js"></script>
+</head>
+<body>
+  <main class="app">
+    <header class="header">
+      <div class="header-top">
+        <h1 id="title">오늘의 할일</h1>
+        <button id="theme-toggle" class="icon-btn" type="button" aria-label="다크 모드로 전환"></button>
+      </div>
+      <div class="date-nav">
+        <button id="prev-day" class="icon-btn" type="button" aria-label="이전 날" title="이전 날">◀</button>
+        <p id="date" class="date" aria-live="polite"></p>
+        <button id="next-day" class="icon-btn" type="button" aria-label="다음 날" title="다음 날">▶</button>
+        <button id="go-today" class="link-btn" type="button" hidden>오늘로</button>
+      </div>
+      <div class="progress">
+        <div id="progress-bar" class="progress-bar" role="progressbar" aria-label="완료율" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <div id="progress-fill" class="progress-fill"></div>
+        </div>
+        <span id="progress-text" class="progress-text"></span>
+      </div>
+      <p id="celebrate" class="celebrate" hidden></p>
+    </header>
+
+    <p id="storage-notice" class="notice" role="alert" hidden></p>
+
+    <section id="carry-banner" class="banner" hidden>
+      <p id="carry-text"></p>
+      <div class="banner-actions">
+        <button id="carry-accept" class="btn primary" type="button">가져오기</button>
+        <button id="carry-dismiss" class="btn" type="button">무시</button>
+      </div>
+    </section>
+
+    <form id="composer" class="composer" autocomplete="off">
+      <label class="sr-only" for="new-todo">새 할 일</label>
+      <input id="new-todo" class="text-input" type="text" maxlength="100" placeholder="할 일을 입력하세요...">
+      <select id="new-tag" class="select" aria-label="시간대">
+        <option value="">시간대</option>
+        <option value="morning">오전</option>
+        <option value="afternoon">오후</option>
+        <option value="evening">저녁</option>
+      </select>
+      <button class="btn primary" type="submit">추가</button>
+    </form>
+    <p id="readonly-note" class="readonly-note" hidden>지난 날의 기록은 읽기 전용이에요.</p>
+
+    <div class="filters" role="group" aria-label="필터">
+      <button type="button" class="filter" data-filter="all">전체</button>
+      <button type="button" class="filter" data-filter="active">진행 중</button>
+      <button type="button" class="filter" data-filter="done">완료</button>
+    </div>
+
+    <ul id="todo-list" class="todo-list" aria-label="할 일 목록"></ul>
+    <p id="empty" class="empty" hidden></p>
+
+    <footer class="footer">
+      <span id="remaining"></span>
+      <button id="clear-done" class="link-btn" type="button">완료된 항목 지우기</button>
+    </footer>
+
+    <div class="extras">
+      <p class="shortcuts">단축키 <kbd>/</kbd> 입력 · <kbd>Space</kbd> 완료 · <kbd>Enter</kbd> 수정 · <kbd>Delete</kbd> 삭제</p>
+      <div class="data-actions">
+        <button id="export-btn" class="link-btn" type="button">백업 내보내기</button>
+        <button id="import-btn" class="link-btn" type="button">백업 가져오기</button>
+        <input id="import-file" type="file" accept="application/json,.json" hidden>
+      </div>
+    </div>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite">
+    <span id="toast-text"></span>
+    <button id="undo-btn" class="link-btn" type="button" tabindex="-1">실행 취소</button>
+  </div>
+</body>
+</html>

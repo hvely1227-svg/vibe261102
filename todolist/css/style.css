@@ -1,0 +1,587 @@
+:root {
+  --bg: #f5f6f8;
+  --surface: #ffffff;
+  --surface-2: #f0f2f5;
+  --text: #1d2330;
+  --text-muted: #5f6878;
+  --border: #dde1e7;
+  --accent: #3b5bdb;
+  --accent-contrast: #ffffff;
+  --accent-soft: #e7ecff;
+  --star: #e8a400;
+  --danger: #c92a2a;
+  --success: #2b8a3e;
+  --banner-bg: #fff4d6;
+  --banner-text: #5c4400;
+  --shadow: 0 1px 2px rgb(16 24 40 / 6%), 0 4px 16px rgb(16 24 40 / 6%);
+  --radius: 12px;
+  --tag-morning: #e6f4ea;
+  --tag-morning-text: #1e6b34;
+  --tag-afternoon: #fff0e0;
+  --tag-afternoon-text: #8a4b00;
+  --tag-evening: #ece8ff;
+  --tag-evening-text: #4b3aa8;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #12151b;
+    --surface: #1b1f27;
+    --surface-2: #242a34;
+    --text: #e8ebf0;
+    --text-muted: #9aa3b2;
+    --border: #2f3642;
+    --accent: #7c97ff;
+    --accent-contrast: #0e1220;
+    --accent-soft: #252d4a;
+    --star: #ffc53d;
+    --danger: #ff8787;
+    --success: #69db7c;
+    --banner-bg: #3a2f10;
+    --banner-text: #ffe08a;
+    --shadow: 0 1px 2px rgb(0 0 0 / 30%), 0 4px 16px rgb(0 0 0 / 25%);
+    --tag-morning: #1d3a26;
+    --tag-morning-text: #8ce99a;
+    --tag-afternoon: #3d2a12;
+    --tag-afternoon-text: #ffc078;
+    --tag-evening: #2c2650;
+    --tag-evening-text: #b9adff;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #12151b;
+  --surface: #1b1f27;
+  --surface-2: #242a34;
+  --text: #e8ebf0;
+  --text-muted: #9aa3b2;
+  --border: #2f3642;
+  --accent: #7c97ff;
+  --accent-contrast: #0e1220;
+  --accent-soft: #252d4a;
+  --star: #ffc53d;
+  --danger: #ff8787;
+  --success: #69db7c;
+  --banner-bg: #3a2f10;
+  --banner-text: #ffe08a;
+  --shadow: 0 1px 2px rgb(0 0 0 / 30%), 0 4px 16px rgb(0 0 0 / 25%);
+  --tag-morning: #1d3a26;
+  --tag-morning-text: #8ce99a;
+  --tag-afternoon: #3d2a12;
+  --tag-afternoon-text: #ffc078;
+  --tag-evening: #2c2650;
+  --tag-evening-text: #b9adff;
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+input,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.app {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 32px 16px 96px;
+}
+
+/* ── 헤더 ── */
+.header {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 20px;
+}
+
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  letter-spacing: -0.02em;
+}
+
+.date-nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 4px;
+}
+
+.date {
+  margin: 0;
+  color: var(--text-muted);
+  font-weight: 500;
+  min-width: 0;
+}
+
+.progress {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.progress-bar {
+  flex: 1;
+  height: 10px;
+  background: var(--surface-2);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0;
+  background: var(--accent);
+  border-radius: inherit;
+  transition: width 0.3s ease;
+}
+
+.progress-text {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.celebrate {
+  margin: 12px 0 0;
+  color: var(--success);
+  font-weight: 600;
+  animation: pop 0.45s ease;
+}
+
+@keyframes pop {
+  0% { transform: scale(0.85); opacity: 0; }
+  60% { transform: scale(1.04); opacity: 1; }
+  100% { transform: scale(1); }
+}
+
+/* ── 버튼 ── */
+.btn {
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+  cursor: pointer;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.btn.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-contrast);
+}
+
+.btn:hover {
+  filter: brightness(0.97);
+}
+
+.icon-btn {
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  flex: none;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 1.05rem;
+}
+
+.icon-btn:hover:not(:disabled) {
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+.icon-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.link-btn {
+  min-height: 44px;
+  padding: 0 8px;
+  border: 0;
+  background: none;
+  color: var(--accent);
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.link-btn:disabled {
+  color: var(--text-muted);
+  opacity: 0.6;
+  cursor: default;
+}
+
+/* ── 알림 ── */
+.notice {
+  margin: 16px 0 0;
+  padding: 12px 16px;
+  border-radius: var(--radius);
+  background: var(--surface-2);
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.banner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+  margin-top: 16px;
+  padding: 12px 16px;
+  border-radius: var(--radius);
+  background: var(--banner-bg);
+  color: var(--banner-text);
+}
+
+.banner p {
+  margin: 0;
+  font-weight: 500;
+}
+
+.banner-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* ── 입력 ── */
+.composer {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.text-input,
+.select,
+.edit-input {
+  min-height: 44px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface);
+}
+
+.text-input {
+  flex: 1;
+  min-width: 0;
+  padding: 0 14px;
+}
+
+.select {
+  padding: 0 8px;
+}
+
+.readonly-note {
+  margin: 16px 0 0;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* ── 필터 ── */
+.filters {
+  display: flex;
+  gap: 4px;
+  margin-top: 20px;
+  padding: 4px;
+  background: var(--surface-2);
+  border-radius: 10px;
+}
+
+.filter {
+  flex: 1;
+  min-height: 40px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.filter.active {
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: var(--shadow);
+  font-weight: 600;
+}
+
+/* ── 목록 ── */
+.todo-list {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+
+.todo {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  min-height: 56px;
+  padding: 4px 4px 4px 8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: border-color 0.15s, opacity 0.15s;
+}
+
+.todo:focus-visible {
+  outline-offset: 0;
+}
+
+.todo.is-important {
+  border-left: 3px solid var(--star);
+}
+
+.todo.dragging {
+  opacity: 0.5;
+  border-style: dashed;
+}
+
+.drag-handle {
+  color: var(--text-muted);
+  cursor: grab;
+  padding: 0 2px;
+  user-select: none;
+}
+
+.check {
+  width: 22px;
+  height: 22px;
+  margin: 11px;
+  flex: none;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+.check:disabled {
+  cursor: default;
+}
+
+.star {
+  color: var(--text-muted);
+}
+
+.star[aria-pressed="true"] {
+  color: var(--star);
+}
+
+.todo-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+  padding: 4px;
+}
+
+.todo-text {
+  overflow-wrap: anywhere;
+  cursor: text;
+}
+
+.todo.is-done .todo-text {
+  color: var(--text-muted);
+  text-decoration: line-through;
+}
+
+.edit-input {
+  width: 100%;
+  padding: 0 10px;
+  border-color: var(--accent);
+}
+
+.tag {
+  padding: 1px 8px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.tag-morning { background: var(--tag-morning); color: var(--tag-morning-text); }
+.tag-afternoon { background: var(--tag-afternoon); color: var(--tag-afternoon-text); }
+.tag-evening { background: var(--tag-evening); color: var(--tag-evening-text); }
+
+.icon-btn.danger:hover {
+  color: var(--danger);
+}
+
+.empty {
+  margin: 12px 0 0;
+  padding: 32px 16px;
+  text-align: center;
+  color: var(--text-muted);
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+}
+
+/* ── 푸터 ── */
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 12px;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.extras {
+  margin-top: 32px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.shortcuts {
+  margin: 0;
+}
+
+kbd {
+  padding: 1px 6px;
+  border: 1px solid var(--border);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  background: var(--surface);
+  font-family: inherit;
+  font-size: 0.8rem;
+}
+
+.data-actions {
+  display: flex;
+  gap: 4px;
+}
+
+.data-actions .link-btn {
+  font-size: 0.85rem;
+}
+
+/* ── 토스트 ── */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: calc(100% - 32px);
+  padding: 4px 8px 4px 16px;
+  border-radius: 12px;
+  background: var(--text);
+  color: var(--bg);
+  box-shadow: var(--shadow);
+  transform: translate(-50%, 16px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s, transform 0.2s, visibility 0.2s;
+}
+
+.toast.show {
+  transform: translate(-50%, 0);
+  opacity: 1;
+  visibility: visible;
+}
+
+.toast .link-btn {
+  color: var(--accent-soft);
+  font-weight: 700;
+}
+
+/* ── 모바일 ── */
+@media (max-width: 480px) {
+  .app {
+    padding-top: 16px;
+  }
+
+  .header {
+    padding: 16px;
+  }
+
+  .composer {
+    flex-wrap: wrap;
+  }
+
+  .text-input {
+    flex-basis: 100%;
+  }
+
+  .composer .select {
+    flex: 1;
+  }
+
+  .shortcuts {
+    display: none;
+  }
+
+  .drag-handle {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
