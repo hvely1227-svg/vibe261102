@@ -116,18 +116,24 @@ def period_cagr(df: pd.DataFrame, periods=((1970, 1985), (1985, 2000), (2000, 20
             rows.append({"구간": f"{a}~{b}", "시작": s, "종료": e,
                          "총변화%": round((e / s - 1) * 100, 1),
                          "연평균증감률%": round(((e / s) ** (1 / (b - a)) - 1) * 100, 2)})
-    return pd.DataFrame(rows).set_index("구간")
+    return pd.DataFrame(rows, columns=["구간", "시작", "종료", "총변화%", "연평균증감률%"]).set_index("구간")
 
 
 def declining_streaks(df: pd.DataFrame) -> pd.DataFrame:
     """출생아수가 연속으로 감소한 구간."""
-    down = df["출생아_증감"] < 0
+    # Int64 비교 결과는 nullable boolean 이라 shift 의 NA 와 비교하면 첫 구간이 사라진다
+    down = (df["출생아_증감"] < 0).fillna(False).astype(bool)
     grp = (down != down.shift()).cumsum()
     rows = []
     for _, s in df[down].groupby(grp[down]):
         rows.append({"시작": int(s.index[0]), "종료": int(s.index[-1]), "연속(년)": len(s),
                      "누적감소": int(s["출생아_증감"].sum())})
-    return pd.DataFrame(rows).sort_values("연속(년)", ascending=False).reset_index(drop=True)
+    out = pd.DataFrame(rows, columns=["시작", "종료", "연속(년)", "누적감소"])
+    return out.sort_values("연속(년)", ascending=False).reset_index(drop=True)
+
+
+def yoy_table(df: pd.DataFrame) -> pd.DataFrame:
+    return df[["출생아수", "출생아_증감", "출생아_증감률%", "합계출산율"]].dropna()
 
 
 def analyze(df: pd.DataFrame) -> None:
