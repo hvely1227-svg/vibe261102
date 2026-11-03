@@ -24,7 +24,8 @@ type PostRow = {
 };
 
 function getSql() {
-  const url = process.env.DATABASE_URL;
+  // 대시보드에 값을 붙여 넣을 때 섞여 들어간 따옴표·공백·줄바꿈 제거
+  const url = process.env.DATABASE_URL?.trim().replace(/^["']|["']$/g, "").trim();
   if (!url) throw new Error("DATABASE_URL 환경 변수가 설정되지 않았습니다. .env.local 파일을 확인하세요.");
   return neon(url);
 }
