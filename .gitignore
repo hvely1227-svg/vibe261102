@@ -1,0 +1,5 @@
+# PyInstaller 빌드 결과물 (모든 하위 폴더의 dist 폴더 포함)
+dist/
+
+# 파이썬 캐시
+__pycache__/
