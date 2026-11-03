@@ -17,7 +17,7 @@ import pandas as pd
 from matplotlib.backends.backend_qtagg import FigureCanvasQTAgg, NavigationToolbar2QT
 from matplotlib.figure import Figure
 from PyQt6.QtCore import QDate, Qt
-from PyQt6.QtGui import QColor, QFont
+from PyQt6.QtGui import QColor, QFont, QIcon
 from PyQt6.QtWidgets import (
     QAbstractItemView,
     QApplication,
@@ -54,6 +54,11 @@ from sp500_analysis import (
 # 미국 증시 관례: 상승은 초록, 하락은 빨강
 RISE_COLOR = "#16A34A"
 FALL_COLOR = "#DC2626"
+
+# PyInstaller 로 묶인 exe 에서는 __file__ 이 임시 폴더를 가리키므로
+# 리소스는 _MEIPASS 에서, 저장 기본 위치는 exe 가 있는 폴더를 쓴다
+RESOURCE_DIR = Path(getattr(sys, "_MEIPASS", Path(__file__).parent))
+APP_DIR = Path(sys.executable).parent if getattr(sys, "frozen", False) else Path(__file__).parent
 
 DEFAULT_START = QDate(2000, 1, 1)
 DEFAULT_END = QDate(2019, 12, 31)
@@ -312,14 +317,20 @@ class MainWindow(QMainWindow):
         if self.df is None:
             return
         path, _ = QFileDialog.getSaveFileName(
-            self, "차트 저장", str(Path(__file__).parent / "sp500_close.png"), "PNG 이미지 (*.png)")
+            self, "차트 저장", str(APP_DIR / "sp500_close.png"), "PNG 이미지 (*.png)")
         if path:
             self.figure.savefig(path, dpi=150)
             self.statusBar().showMessage(f"차트 저장: {path}")
 
 
 if __name__ == "__main__":
+    if sys.platform == "win32":
+        import ctypes
+
+        # 작업 표시줄에 python 아이콘 대신 앱 아이콘이 보이도록
+        ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID("sp500.analysis.gui")
     app = QApplication(sys.argv)
+    app.setWindowIcon(QIcon(str(RESOURCE_DIR / "app.ico")))
     win = MainWindow()
     win.show()
     sys.exit(app.exec())
