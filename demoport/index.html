@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>hvely | Python & HTML5 Developer</title>
+  <meta name="description" content="Python과 HTML5를 주력으로 하는 개발자 hvely의 프로필 웹사이트입니다.">
+  <meta property="og:title" content="hvely | Python & HTML5 Developer">
+  <meta property="og:description" content="Python과 HTML5를 주력으로 하는 개발자 프로필">
+  <meta property="og:type" content="website">
+  <link rel="stylesheet" href="css/style.css">
+  <script>
+    // 첫 렌더 전에 테마를 적용해 깜빡임 방지
+    (function () {
+      try {
+        var saved = localStorage.getItem("theme");
+        if (saved) document.documentElement.setAttribute("data-theme", saved);
+      } catch (e) {}
+    })();
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">본문 바로가기</a>
+
+  <header class="site-header" id="top">
+    <div class="container header-inner">
+      <a class="logo" href="#top">hvely<span>.dev</span></a>
+      <nav class="nav" aria-label="주 메뉴">
+        <button class="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="메뉴 열기">
+          <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-menu" id="nav-menu">
+          <li><a href="#about">About</a></li>
+          <li><a href="#skills">Skills</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <button class="theme-toggle" type="button" aria-label="다크 모드 전환">◐</button>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container">
+        <p class="hero-eyebrow">안녕하세요, 저는</p>
+        <h1 id="hero-title">hvely <span class="accent">입니다.</span></h1>
+        <p class="hero-role">Python &amp; HTML5 Developer</p>
+        <p class="hero-desc">
+          Python으로 견고한 로직을 만들고, HTML5로 누구나 쉽게 쓸 수 있는 화면을 만듭니다.
+          단순하고 읽기 쉬운 코드를 좋아합니다.
+        </p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#projects">프로젝트 보기</a>
+          <a class="btn btn-outline" href="#contact">연락하기</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="about" aria-labelledby="about-title">
+      <div class="container about-grid">
+        <div class="about-avatar" aria-hidden="true">H</div>
+        <div>
+          <h2 class="section-title" id="about-title">About</h2>
+          <p>
+            Python 기반의 자동화·백엔드 개발과 HTML5 기반의 웹 프론트엔드 개발을 주로 합니다.
+            문제를 작게 나누고, 동작하는 결과물을 빠르게 만든 뒤 꾸준히 다듬는 방식으로 일합니다.
+          </p>
+          <ul class="strengths">
+            <li><strong>꼼꼼함</strong> — 테스트와 문서화를 습관처럼</li>
+            <li><strong>실용성</strong> — 필요한 만큼만, 단순하게</li>
+            <li><strong>소통</strong> — 진행 상황을 투명하게 공유</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt" id="skills" aria-labelledby="skills-title">
+      <div class="container">
+        <h2 class="section-title" id="skills-title">Skills</h2>
+        <div class="skills-main">
+          <article class="skill-card skill-primary">
+            <h3>Python</h3>
+            <p>자동화 스크립트, 데이터 처리, Flask/Django 웹 백엔드</p>
+          </article>
+          <article class="skill-card skill-primary">
+            <h3>HTML5</h3>
+            <p>시맨틱 마크업, 접근성, 반응형 웹 페이지 구성</p>
+          </article>
+        </div>
+        <h3 class="skills-sub-title">Also familiar with</h3>
+        <ul class="badges">
+          <li>CSS3</li>
+          <li>JavaScript</li>
+          <li>Flask</li>
+          <li>Django</li>
+          <li>Git</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" id="projects" aria-labelledby="projects-title">
+      <div class="container">
+        <h2 class="section-title" id="projects-title">Projects</h2>
+        <div class="project-grid" id="project-list"></div>
+      </div>
+    </section>
+
+    <section class="section section-alt" id="contact" aria-labelledby="contact-title">
+      <div class="container contact">
+        <h2 class="section-title" id="contact-title">Contact</h2>
+        <p>새로운 프로젝트, 협업 제안, 채용 문의 모두 환영합니다.</p>
+        <div class="contact-box">
+          <a class="contact-email" href="mailto:hvely1227@gmail.com">hvely1227@gmail.com</a>
+          <button class="btn btn-outline btn-sm" type="button" id="copy-email" data-email="hvely1227@gmail.com">이메일 복사</button>
+        </div>
+        <p class="copy-status" id="copy-status" role="status" aria-live="polite"></p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; <span id="year">2026</span> demoport. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="js/projects.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
